@@ -1,0 +1,16 @@
+# IDE Files
+.idea/
+
+# COMPOSER Files
+composer.phar
+vendor/
+composer.lock
+
+# APPLICATION Files
+application/cache/*
+!application/cache/index.html
+
+application/logs/*
+!application/logs/index.html
+
+!application/*/.htaccess
