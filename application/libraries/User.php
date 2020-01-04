@@ -3,31 +3,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User
 {
-    private $id;
-    private $username;
+    protected $id = 0;
+    protected $username = 'Guest';
+    protected $role = 'user';
+
     private $CI;
 
     public function __construct()
     {
         $this->CI =& get_instance();
-        $this->CI->load->library('session');
 
-        if (isset($this->CI->session->user)) {
-            $this->id = $this->CI->session->user['id'];
-            $this->username = $this->CI->session->user['username'];
+        if (isset($this->CI->session->user_id)) {
+            $this->id = $this->CI->session->user_id;
+            $this->username = $this->CI->session->user_username;
+            $this->role = $this->CI->session->user_role;
         }
     }
 
     public function login($email, $password)
     {
-        $this->CI->load->library('session');
+        $this->CI->load->model('account/user_model');
 
-        $query = $this->CI->db->query("SELECT * FROM `user` WHERE LOWER(email) = " . $this->CI->db->escape(strtolower($email)));
-
-        if ($query->num_rows()) {
-
-            $row = $query->row();
-
+        if($row = $this->CI->user_model->getUserByEmail($email)){
             if (password_verify($password, $row->password)) {
                 if (password_needs_rehash($row->password, PASSWORD_DEFAULT)) {
                     $hash = password_hash($password, PASSWORD_DEFAULT);
@@ -37,13 +34,12 @@ class User
                 return false;
             }
 
-            $this->CI->session->user = [];
-
-            $this->id = $this->CI->session->user['id'] = $row['id'];
-            $this->username = $this->CI->session->user['username'] = $row['username'];
+            $this->id = $this->CI->session->user_id = $row->id;
+            $this->username = $this->CI->session->user_username = $row->username;
+            $this->role = $this->CI->session->user_role = $row->role;
 
             if (isset($hash)) {
-                $this->CI->db->query("UPDATE `user` SET  password = " . $this->CI->db->escape($hash) . " WHERE `id` = '" . (int)$this->id . "'");
+                $this->CI->user_model->editPassword($row->id, $hash);
             }
 
             return true;
@@ -55,11 +51,13 @@ class User
 
     public function logout()
     {
-        $this->CI->load->library('session');
-        $this->CI->session->unset_userdata('user');
+        $this->CI->session->unset_userdata('user_id');
+        $this->CI->session->unset_userdata('user_username');
+        $this->CI->session->unset_userdata('user_role');
 
         $this->id = 0;
         $this->username = 'Guest';
+        $this->role = 'user';
     }
 
     public function getId()
@@ -70,6 +68,11 @@ class User
     public function getUsername()
     {
         return $this->username;
+    }
+
+    public function getRole()
+    {
+        return $this->role;
     }
 
     public function isLogged()
