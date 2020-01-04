@@ -11,14 +11,14 @@ class Post_model extends CI_Model
 
     public function getPost($id)
     {
-        $query = $this->db->query("SELECT DISTINCT `post`.*, (SELECT `user`.`username` FROM `user` WHERE `post`.`id`=`post`.`user_id`) as author FROM `post` WHERE `post`.`id` = '" . (int)$id . "'");
+        $query = $this->db->query("SELECT DISTINCT `post`.*, (SELECT `user`.`username` FROM `user` WHERE `user`.`id`=`post`.`user_id`) as author FROM `post` WHERE `post`.`id` = '" . (int)$id . "'");
 
         return $query->row();
     }
 
     public function getPosts()
     {
-        $sql = 'SELECT `post`.*, (SELECT `user`.`username` FROM `user` WHERE `post`.`id`=`post`.`user_id`) as author FROM `post`';
+        $sql = 'SELECT `post`.*, (SELECT `user`.`username` FROM `user` WHERE `user`.`id`=`post`.`user_id`) as author FROM `post`';
 
         $query = $this->db->query($sql);
 
