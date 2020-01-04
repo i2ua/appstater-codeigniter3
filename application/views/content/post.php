@@ -7,44 +7,33 @@
         <!-- Post Content Column -->
         <div class="col-lg-8">
 
-            <?php if ($error) { ?>
-                <div class="alert alert-danger alert-dismissible">
-                    <?php echo $error; ?>
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                </div>
-            <?php } ?>
+<!--            --><?php //if ($error) { ?>
+<!--                <div class="alert alert-danger alert-dismissible">-->
+<!--                    --><?php //echo $error; ?>
+<!--                    <button type="button" class="close" data-dismiss="alert">&times;</button>-->
+<!--                </div>-->
+<!--            --><?php //} ?>
 
             <!-- Title -->
             <h1 class="mt-4"><?php echo $title; ?></h1>
-
             <!-- Author -->
-            <p class="lead">
-                by
-                <a href="#"><?php echo $author; ?></a>
-            </p>
-
+            <p class="lead">by <a href="#"><?php echo $author; ?></a></p>
             <hr>
-
             <!-- Date/Time -->
-            <p>Posted on January 1, 2019 at 12:00 PM</p>
-
+            <p>Posted on <?php echo $date_added; ?></p><!--<p>Posted on January 1, 2019 at 12:00 PM</p>-->
             <hr>
-
             <!-- Preview Image -->
             <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
-
             <hr>
-
             <!-- Post Content -->
             <?php  echo $content; ?>
-
             <hr>
 
             <!-- Comments Form -->
             <div class="card my-4">
                 <h5 class="card-header">Leave a Comment:</h5>
                 <div class="card-body">
-                    <form action="<?php  echo $action; ?>" method="post">
+                    <form action="<?php // echo $action; ?>" method="post">
                         <div class="form-group">
                             <textarea name="text" class="form-control" rows="3"></textarea>
                         </div>
