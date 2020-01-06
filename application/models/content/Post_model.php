@@ -11,14 +11,18 @@ class Post_model extends CI_Model
 
     public function getPost($id)
     {
-        $query = $this->db->query("SELECT DISTINCT `post`.*, (SELECT `user`.`username` FROM `user` WHERE `user`.`id`=`post`.`user_id`) as author FROM `post` WHERE `post`.`id` = '" . (int)$id . "'");
+        $query = $this->db->query("SELECT DISTINCT `post`.*, (SELECT  DISTINCT `user`.`username` FROM `user` WHERE `user`.`id`=`post`.`user_id`) as author FROM `post` WHERE `post`.`id` = '" . (int)$id . "'");
 
         return $query->row();
     }
 
-    public function getPosts()
+    public function getPosts($options = array())
     {
-        $sql = 'SELECT `post`.*, (SELECT `user`.`username` FROM `user` WHERE `user`.`id`=`post`.`user_id`) as author FROM `post`';
+        $sql = 'SELECT `post`.*, (SELECT DISTINCT `user`.`username` FROM `user` WHERE `user`.`id`=`post`.`user_id`) as author FROM `post` ORDER BY `post`.`date_added` DESC';
+
+        if (isset($options['offset'], $options['limit'])) {
+            $sql .= " LIMIT " . (int)$options['limit'] . " OFFSET " . (int)$options['offset'];
+        }
 
         $query = $this->db->query($sql);
 
@@ -32,5 +36,14 @@ class Post_model extends CI_Model
         $query = $this->db->query($sql);
 
         return $query->row('total');
+    }
+
+    public function getTotals()
+    {
+        $sql = "SELECT COUNT(*) AS posts, (SELECT COUNT(*) FROM `user`) as users, (SELECT COUNT(*) FROM `comment`) as comments FROM `post`" ;
+
+        $query = $this->db->query($sql);
+
+        return $query->row();
     }
 }

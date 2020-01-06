@@ -2,48 +2,40 @@
 <html lang="en">
 <head>
     <base href="<?php echo base_url(); ?>">
-	<meta charset="UTF-8">
-	<title><?php echo $title; ?></title>
+    <meta charset="UTF-8">
+    <title><?php echo $title; ?></title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark p-3 px-md-4 mb-3 bg-dark shadow-sm fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">Comment Desk</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="#"><i class="fas fa-comments"></i> Comment Desk</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-<!--                <li class="nav-item active">-->
-<!--                    <a class="nav-link" href="#">Home-->
-<!--                        <span class="sr-only">(current)</span>-->
-<!--                    </a>-->
-<!--                </li>-->
-                <li class="nav-item">
-                    <a class="btn btn-primary" href="#">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-outline-primary" href="#">Sign up</a>
+                <li class="nav-item"><a class="nav-link" href="">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="content/post/list">Posts</a></li>
+                <li class="nav-item"><a class="nav-link" href="content/post/add">New Post</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-primary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="far fa-user-circle"></i> Hello, <?php echo $username; ?>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdown">
+                        <?php if (!$logged) { ?>
+                            <a class="dropdown-item" href="account/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                            <a class="dropdown-item" href="account/register"><i class="fas fa-user-plus"></i> Register</a>
+                        <?php } else { ?>
+                            <a class="dropdown-item" href="account/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        <?php } ?>
+                    </div>
                 </li>
             </ul>
-
-
         </div>
     </div>
 </nav>
-
-<!--<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm  fixed-top">-->
-<!--    <h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>-->
-<!--    <nav class="my-2 my-md-0 mr-md-3">-->
-<!--        <a class="p-2 text-dark" href="#">Features</a>-->
-<!--        <a class="p-2 text-dark" href="#">Enterprise</a>-->
-<!--        <a class="p-2 text-dark" href="#">Support</a>-->
-<!--        <a class="p-2 text-dark" href="#">Pricing</a>-->
-<!--    </nav>-->
-<!--    <a class="btn btn-outline-primary" href="#">Sign up</a>-->
-<!--    <a class="btn btn-outline-primary" href="#">Sign in</a>-->
-<!--</div>-->

@@ -1,7 +1,8 @@
 <div class="container">
     <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            <div class="card card-signin my-5">
+        <div class="col-sm-9 col-md-9 col-lg-8 mx-auto">
+            <div class="card card-signin card-login flex-row  my-5">
+                <div class="card-img-left d-none d-md-flex"></div>
                 <div class="card-body">
                     <?php if($error) { ?>
                         <div class="alert alert-danger alert-dismissible" role="alert"><?php echo $error ?></div>

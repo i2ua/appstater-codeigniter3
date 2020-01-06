@@ -16,9 +16,13 @@ class Comment_model extends CI_Model
         return $query->row();
     }
 
-    public function getComments()
+    public function getComments($options = array())
     {
-        $sql = 'SELECT * FROM `comment`';
+        $sql = 'SELECT * FROM `comment` ORDER BY `date_added` DESC';
+
+        if (isset($options['offset'], $options['limit'])) {
+            $sql .= " LIMIT " . (int)$options['limit'] . " OFFSET " . (int)$options['offset'];
+        }
 
         $query = $this->db->query($sql);
 
